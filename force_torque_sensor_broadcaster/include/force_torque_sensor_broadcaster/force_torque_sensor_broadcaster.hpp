@@ -63,12 +63,14 @@ public:
   controller_interface::return_type update_and_write_commands(
     const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
+  // this was not the correct format for humble, so it has been changed
   FORCE_TORQUE_SENSOR_BROADCASTER_PUBLIC
-  controller_interface::return_type update_reference_from_subscribers(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  controller_interface::return_type update_reference_from_subscribers() override;
 
-  FORCE_TORQUE_SENSOR_BROADCASTER_PUBLIC
-  std::vector<hardware_interface::StateInterface> on_export_state_interfaces() override;
+  // this doesn't exist yet in humble, it is only available in rolling. hmmm
+  // we may be forced to use humble if we need this capability by itself.
+//  FORCE_TORQUE_SENSOR_BROADCASTER_PUBLIC
+  std::vector<hardware_interface::CommandInterface> on_export_reference_interfaces() override;
 
 protected:
   void apply_sensor_offset(const Params & params, geometry_msgs::msg::WrenchStamped & msg);
